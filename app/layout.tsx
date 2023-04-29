@@ -2,11 +2,12 @@
 
 import './globals.css'
 import { Inter } from 'next/font/google'
-import { darkTheme } from "./theme/themes"
+import { darkTheme, lightTheme } from "./theme/themes"
 import { ThemeProvider, CssBaseline } from "@mui/material"
+import { ChangeEvent, useState } from "react"
 
-const inter = Inter({ subsets: ['latin'] })
 /*
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Interview Request',
@@ -16,6 +17,14 @@ export const metadata = {
 
 export default function RootLayout({ children,}: {
   children: React.ReactNode }) {
+  let [userDarkTheme, setUserDarkTheme] = useState(false)
+  let [theme, setTheme] = useState(userDarkTheme ? darkTheme : lightTheme)
+
+  const changeThemeHandler = (target: ChangeEvent, currentValue: boolean) => {
+    setUserDarkTheme(currentValue)
+    setTheme(currentValue ? darkTheme : lightTheme)
+  }
+
   return (
     <html lang="en">
       <head>
@@ -28,9 +37,11 @@ export default function RootLayout({ children,}: {
         <link rel="manifest" href="site.webmanifest" />
         <title>Interview Request</title>
       </head>
-      <ThemeProvider theme={darkTheme}>
-        <CssBaseline />
-        <body className={inter.className}>{children}</body>
+      <ThemeProvider theme={theme}>
+        <body id="__next">
+          <CssBaseline />
+          {children}
+        </body>
       </ThemeProvider>
     </html>
   )
