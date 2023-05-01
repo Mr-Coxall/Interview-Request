@@ -26,5 +26,5 @@ export default function Head() {
         href="favicon-16x16.png"
       />
     </>
-  );
+  )
 }
