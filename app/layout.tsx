@@ -1,48 +1,40 @@
-"use client"
+import "../styles/globals.css"
+import { Oswald, Poppins } from "@next/font/google"
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import Providers from "./Providers"
 
-import './globals.css'
-import { Inter } from 'next/font/google'
-import { darkTheme, lightTheme } from "./theme/themes"
-import { ThemeProvider, CssBaseline } from "@mui/material"
-import { ChangeEvent, useState } from "react"
+const oswald = Oswald({
+	weight: ["400", "600"],
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-oswald",
+})
 
-/*
-const inter = Inter({ subsets: ['latin'] })
+const popins = Poppins({
+	weight: ["100", "300", "400", "500", "700", "900"],
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-popins",
+})
 
-export const metadata = {
-  title: 'Interview Request',
-  description: 'Teacher Interview Request App',
-}
-*/
-
-export default function RootLayout({ children,}: {
-  children: React.ReactNode }) {
-  let [userDarkTheme, setUserDarkTheme] = useState(false)
-  let [theme, setTheme] = useState(userDarkTheme ? darkTheme : lightTheme)
-
-  const changeThemeHandler = (target: ChangeEvent, currentValue: boolean) => {
-    setUserDarkTheme(currentValue)
-    setTheme(currentValue ? darkTheme : lightTheme)
-  }
-
-  return (
-    <html lang="en">
-      <head>
-        <meta name="keywords" content="interview, request" />
-        <meta name="author" content="Mr. Coxall" />
-        <meta name="description" content="Teacher Interview Request App" />
-        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png" />
-        <link rel="manifest" href="site.webmanifest" />
-        <title>Interview Request</title>
-      </head>
-      <ThemeProvider theme={theme}>
-        <body id="__next">
-          <CssBaseline />
-          {children}
-        </body>
-      </ThemeProvider>
-    </html>
-  )
+export default function RootLayout({
+	children,
+}: {
+	children: React.ReactNode
+}) {
+	return (
+		<html className="h-full scroll-smooth">
+			<head />
+			<body className="bg-gradient-to-r from-green-50 to-green-200 dark:bg-gradient-to-t dark:from-[#242933] dark:to-[#2A303C] max-w-3xl mx-auto transition-all duration-150">
+				<Providers>
+					<div className={`${oswald.variable} ${popins.variable}`}>
+						<Header />
+						<main>{children}</main>
+						<Footer />
+					</div>
+				</Providers>
+			</body>
+		</html>
+	)
 }

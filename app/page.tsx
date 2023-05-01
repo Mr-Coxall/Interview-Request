@@ -1,22 +1,28 @@
-"use client"
+import Image from "next/image"
+import data from "../data.json"
+import LinkCard from "./components/LinkCard"
 
-import { Button, Grid, Stack } from "@mui/material";
-import { Inter } from 'next/font/google'
+const HomePage = () => {
+	return (
+		<div className="flex justify-center items-center flex-col mx-auto w-full pt-12 px-8">
+			<Image
+				alt={data.name}
+				src={data.avatar}
+				width={96}
+				height={96}
+				className="rounded-full"
+			/>
 
-const inter = Inter({ subsets: ['latin'] })
-
-export default function Home() {
-  return (
-    <Grid container height="100vh" alignItems="center" justifyContent="center" direction="column">
-      <h1 className="text-blue-500">Using Material UI with Next.js 13</h1>
-      <h4 className="text-red-500">(with Tailwind CSS)</h4>
-      <Stack direction="row" columnGap={1}>
-        <Button variant="text" className="text-red-500">
-          Text
-        </Button>
-        <Button variant="contained">Contained</Button>
-        <Button variant="outlined">Outlined</Button>
-      </Stack>
-    </Grid>
-  );
+			<h1 className="my-4 text-2xl font-semibold font-oswald">
+				@{data.name}
+			</h1>
+			<p className="mb-8 text-gray-500 font-medium text-center font-popins text-sm sm:text-base">
+				{data.bio}
+			</p>
+			{data.links.map((link) => (
+				<LinkCard key={link.url} {...link} />
+			))}
+		</div>
+	)
 }
+export default HomePage
